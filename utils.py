@@ -14,7 +14,6 @@ def load_t7(filename):
     print("loading " + filename)
     ret = []
     net = torchfile.load(filename)
-    print(filename + ":")
     for mod in net.modules:
         b = mod.bias
         if b is not None:
@@ -24,7 +23,7 @@ def load_t7(filename):
     print("loaded " + str(len(ret)) + " layers")
     return ret
 
-def load_image(fpath,size = 1024):
+def load_image(fpath,size = 768):
     print("loading image " + str(fpath))
     cImg = cv2.imread(fpath)
     if cImg.shape[0] > cImg.shape[1]:

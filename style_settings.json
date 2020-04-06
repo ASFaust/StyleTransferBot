@@ -1,49 +1,79 @@
 {
  "monet": {
-  "cache": "Resources/Styles/monet.pt",
-  "content_size": 768,
+  "content_size": 800,
   "description": "procedure is [detail/abstraction level, weight]",
   "image": "Resources/Styles/monet.jpg",
-  "procedure": "[[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5],[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5]]",
-  "style_size": 512
+  "procedure": "[[3,0.9],[5,0.5],[2,1.0],[1,1.0]]",
+  "style_size": 256
  },
- "ramen": {
-  "cache": "Resources/Styles/ramen.pt",
+  "ramen": {
   "content_size": 768,
   "description": "procedure is [detail/abstraction level, weight]",
   "image": "Resources/Styles/ramen.jpg",
-  "procedure": "[[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5],[5,0.5],[4,0.5]]",
-  "style_size": 512
+  "procedure": "[[5,0.2],[5,0.7],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+  "style_size": 380
  },
- "reef1": {
+  "bismuth": {
   "content_size": 768,
   "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/reef.jpg",
-  "procedure": "[[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5],[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5]]",
+  "image": "Resources/Styles/bismuth.jpg",
+  "procedure": "[[5,1.0],[5,0.75],[4,0.5],[2,0.5],[1,0.5]]",
+  "style_size": 512
+ },
+  "bismuth2": {
+  "content_size": 768,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/bismuth2.jpg",
+  "procedure": "[[5,0.2],[5,0.7],[4,0.5],[3,0.5],[2,0.5],[1,0.5]]",
+  "style_size": 820
+ },
+ "meat2": {
+  "content_size": 768,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/meat2.jpg",
+  "procedure": "[[3,1.0],[5,0.9],[5,0.9],[5,0.7],[4,1.0],[3,0.5],[2,0.5],[1,1.0]]",
+  "style_size": 512
+ },
+  "coral3": {
+  "content_size": 768,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/coral3.jpg",
+  "procedure": "[[5,1.0],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
   "style_size": 768
  },
- "reef2": {
-  "cache": "Resources/Styles/reef2.pt",
+  "clouds": {
   "content_size": 768,
   "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/reef2.jpg",
-  "procedure": "[[5,0.7],[4,0.7],[3,0.7],[2,0.7],[1,0.7],[5,0.7],[4,0.7],[3,0.7],[2,0.7],[1,0.7]]",
-  "style_size": 512
+  "image": "Resources/Styles/clouds.jpg",
+  "procedure": "[[5,0.2],[5,0.9],[4,1.0],[3,0.5],[2,0.5],[1,0.5]]",
+  "style_size": 768
  },
- "wood1": {
-  "cache": "Resources/Styles/wood1.pt",
+  "wood2": {
   "content_size": 768,
   "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/wood1.jpg",
-  "procedure": "[[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5],[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5]]",
-  "style_size": 512
+  "image": "Resources/Styles/fish1.jpg",
+  "procedure": "[[5,1.0],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+  "style_size": 620
  },
- "wood2": {
-  "cache": "Resources/Styles/wood2.pt",
+  "metal": {
   "content_size": 768,
   "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/wood2.jpg",
-  "procedure": "[[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5],[5,0.5],[4,0.5],[3,0.5],[2,0.5],[1,0.5]]",
-  "style_size": 512
+  "image": "Resources/Styles/fish1.jpg",
+  "procedure": "[[5,1.0],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+  "style_size": 800
+ },
+    "fish": {
+  "content_size": 768,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/fish1.jpg",
+  "procedure": "[[1,1.0],[5,0.5],[5,0.5],[4,0.7],[3,0.4],[2,0.4],[1,0.4]]",
+  "style_size": 224
+ },
+  "what2": {
+  "content_size": 768,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/what2.jpg",
+  "procedure": "[[1,0.75],[5,0.3],[5,0.3],[5,0.3],[5,0.3],[5,0.3],[2,0.5],[1,0.2]]",
+  "style_size": 768
  }
 }

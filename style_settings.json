@@ -48,6 +48,13 @@
   "procedure": "[[5,0.2],[5,0.9],[4,1.0],[3,0.5],[2,0.5],[1,0.5]]",
   "style_size": 768
  },
+  "face": {
+  "content_size": 768,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/face.jpg",
+  "procedure": "[[6,0.3],[6,0.3],[6,0.3],[5,0.3],[5,0.3],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+  "style_size": 390
+ },
   "wood2": {
   "content_size": 768,
   "description": "procedure is [detail/abstraction level, weight]",
@@ -55,19 +62,19 @@
   "procedure": "[[5,1.0],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
   "style_size": 620
  },
-  "metal": {
+  "meat": {
   "content_size": 768,
   "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/fish1.jpg",
-  "procedure": "[[5,1.0],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+  "image": "Resources/Styles/meat.jpg",
+  "procedure": "[[6,0.9],[5,0.7],[4,0.5],[3,0.6],[2,0.7],[1,0.8],[4,0.7],[3,1.0],[2,1.0],[1,1.0]]",
   "style_size": 800
  },
-    "fish": {
+  "fish": {
   "content_size": 768,
   "description": "procedure is [detail/abstraction level, weight]",
   "image": "Resources/Styles/fish1.jpg",
   "procedure": "[[1,1.0],[5,0.5],[5,0.5],[4,0.7],[3,0.4],[2,0.4],[1,0.4]]",
-  "style_size": 224
+  "style_size": 768
  },
   "what2": {
   "content_size": 768,

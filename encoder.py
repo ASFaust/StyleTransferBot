@@ -332,6 +332,101 @@ class level_5_encoder(_fe):
             out_4 = style_features.relu14(out)
         return out_4
 
+class part_encoder_lvl0_1(_fe):
+    def __init__(self):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        super(part_encoder_lvl0_1, self).__init__()
+
+    def forward(self,x):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        with torch.no_grad():
+            out = part_encoder_lvl0_1.conv1(x)
+            out = part_encoder_lvl0_1.reflecPad1(out)
+            out = part_encoder_lvl0_1.conv2(out)
+            out_0 = part_encoder_lvl0_1.relu2(out)
+        return out_0
+
+class part_encoder_lvl1_2(_fe):
+    def __init__(self):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        super(part_encoder_lvl1_2, self).__init__()
+
+    def forward(self,x):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        with torch.no_grad():
+            out = part_encoder_lvl1_2.reflecPad3(x)
+            out = part_encoder_lvl1_2.conv3(out)
+            out = part_encoder_lvl1_2.relu3(out)
+            out,pool_idx = part_encoder_lvl1_2.maxPool(out)
+            out = part_encoder_lvl1_2.reflecPad4(out)
+            out = part_encoder_lvl1_2.conv4(out)
+            out_1 = part_encoder_lvl1_2.relu4(out)
+        return out_1
+
+class part_encoder_lvl2_3(_fe):
+    def __init__(self):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        super(part_encoder_lvl2_3, self).__init__()
+
+    def forward(self,x):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        with torch.no_grad():
+            out = part_encoder_lvl2_3.reflecPad5(x)
+            out = part_encoder_lvl2_3.conv5(out)
+            out = part_encoder_lvl2_3.relu5(out)
+            out, pool_idx2 = part_encoder_lvl2_3.maxPool2(out)
+            out = part_encoder_lvl2_3.reflecPad6(out)
+            out = part_encoder_lvl2_3.conv6(out)
+            out_2 = part_encoder_lvl2_3.relu6(out)
+        return out_2
+
+class part_encoder_lvl3_4(_fe):
+    def __init__(self):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        super(part_encoder_lvl3_4, self).__init__()
+
+    def forward(self,x):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        with torch.no_grad():
+            out = part_encoder_lvl3_4.reflecPad7(x)
+            out = part_encoder_lvl3_4.conv7(out)
+            out = part_encoder_lvl3_4.relu7(out)
+            out = part_encoder_lvl3_4.reflecPad8(out)
+            out = part_encoder_lvl3_4.conv8(out)
+            out = part_encoder_lvl3_4.relu8(out)
+            out = part_encoder_lvl3_4.reflecPad9(out)
+            out = part_encoder_lvl3_4.conv9(out)
+            out = part_encoder_lvl3_4.relu9(out)
+            out, pool_idx3 = part_encoder_lvl3_4.maxPool3(out)
+            out = part_encoder_lvl3_4.reflecPad10(out)
+            out = part_encoder_lvl3_4.conv10(out)
+            out_3 = part_encoder_lvl3_4.relu10(out)
+        return out_3
+
+class part_encoder_lvl4_5(_fe):
+    def __init__(self):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        super(part_encoder_lvl4_5, self).__init__()
+
+    def forward(self, x):
+        torch.set_default_tensor_type('torch.cuda.HalfTensor')
+        with torch.no_grad():
+            out = part_encoder_lvl4_5.reflecPad11(x)
+            out = part_encoder_lvl4_5.conv11(out)
+            out = part_encoder_lvl4_5.relu11(out)
+            out = part_encoder_lvl4_5.reflecPad12(out)
+            out = part_encoder_lvl4_5.conv12(out)
+            out = part_encoder_lvl4_5.relu12(out)
+            out = part_encoder_lvl4_5.reflecPad13(out)
+            out = part_encoder_lvl4_5.conv13(out)
+            out = part_encoder_lvl4_5.relu13(out)
+            out, pool_idx4 = part_encoder_lvl4_5.maxPool4(out)
+            out = part_encoder_lvl4_5.reflecPad14(out)
+            out = part_encoder_lvl4_5.conv14(out)
+            out_4 = part_encoder_lvl4_5.relu14(out)
+        return out_4
+
+
 class style_features(_fe):
     def __init__(self):
         torch.set_default_tensor_type('torch.cuda.HalfTensor')

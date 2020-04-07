@@ -6,7 +6,12 @@ from encoder import style_features,\
     level_4_encoder, \
     level_3_encoder, \
     level_2_encoder, \
-    level_1_encoder
+    level_1_encoder, \
+    part_encoder_lvl0_1, \
+    part_encoder_lvl1_2, \
+    part_encoder_lvl2_3, \
+    part_encoder_lvl3_4, \
+    part_encoder_lvl4_5
 
 from decoder import \
     level_5_decoder, \
@@ -33,6 +38,76 @@ class Styletransfer:
         self.encoder_cache = None
         self.decoder_cache = None
         self.last_level = -1
+
+    def run_experimental(self,image,style,filename = "test.png"):
+        self.WCT = WCT()
+        self.set_style(style)
+        img = load_image(image, size=self.current_style["content_size"])
+        print("level 1")
+        pe = part_encoder_lvl0_1()
+        features = pe(img)
+        colored = features
+        #colored = self.WCT.content_coloring(
+        ##    features,
+        #    self.style_vars["1"],
+        #    1.0)
+        decoder = level_1_decoder()
+        img = decoder(colored)
+        vutils.save_image(img.data.cpu().float(), filename + "1.jpg")
+        pe = part_encoder_lvl1_2()
+        print("level 2")
+        features = pe(colored)
+        colored = features
+        #colored = self.WCT.content_coloring(
+        #    features,
+        #    self.style_vars["2"],
+         #   1.0)
+        decoder = level_2_decoder()
+        img = decoder(colored)
+        vutils.save_image(img.data.cpu().float(), filename + "2.jpg")
+        pe = part_encoder_lvl2_3()
+        print("level 3")
+        features = pe(colored)
+        colored = features
+        #colored = self.WCT.content_coloring(
+        #    features,
+       #     self.style_vars["3"],
+        #    1.0)
+        decoder = level_3_decoder()
+        img = decoder(colored)
+        vutils.save_image(img.data.cpu().float(), filename + "3.jpg")
+        pe = part_encoder_lvl3_4()
+        print("level 4")
+        features = pe(colored)
+        colored = features
+        #colored = self.WCT.content_coloring(
+        #    features,
+        #    self.style_vars["4"],
+        #    1.0)
+        decoder = level_4_decoder()
+        img = decoder(colored)
+        vutils.save_image(img.data.cpu().float(), filename + "4.jpg")
+        print("level 5")
+        pe = part_encoder_lvl4_5()
+        features = pe(colored)
+        colored = self.WCT.content_coloring(
+            features,
+            self.style_vars["5"],
+            1.0)
+        print("decoding")
+        decoder = level_5_decoder()
+        img = decoder(colored)
+        print("---" * 20)
+        print("saving as " + filename)
+        vutils.save_image(img.data.cpu().float(), filename)
+        del self.WCT
+        try:
+            del self.encoder_cache
+            del self.decoder_cache
+        except:
+            pass
+        self.last_level = -1
+        torch.cuda.empty_cache()
 
     def run(self,image,style,filename = "test.png",intermediates = False):
         self.WCT = WCT()
@@ -62,95 +137,71 @@ class Styletransfer:
         self.last_level = -1
         torch.cuda.empty_cache()
 
-    def explore_style_0(self,style,style_size):
-        print("exploring " + style)
-        if self._style_settings is None:
-            self._style_settings = json.load(open("style_settings.json","r"))
-        for source in ["road.jpg","house1.jpg", "woody.jpg", "meme1.jpg","bob1.jpg"]:
-            source_file = "Resources/" + source
-            self._style_settings[style]["style_size"] = style_size
-            for weight in [0.5, 0.75, 1.0]:
-                self._style_settings[style]["procedure"] = "[[5,{w}],[4,{w}],[3,{w}],[2,{w}],[1,{w}]]".format(w = str(weight))
-                result = "Results/full_" + style + "_" + source + "_size_" + str(style_size) + "_w_" + str(weight)  + ".png"
-                self.run(source_file, style, result)
-
-    def explore_style(self,style,style_size,prefix = "",weights = [0.5,0.75,1.0]):
-        print("exploring " + style)
-        if self._style_settings is None:
-            self._style_settings = json.load(open("style_settings.json","r"))
-        for source in ["road.jpg","house1.jpg", "woody.jpg", "meme1.jpg","bob1.jpg"]:
-            source_file = "Resources/" + source
-            self._style_settings[style]["style_size"] = style_size
-            if prefix != "":
-                procedure = "[" + prefix + "]"
-                self._style_settings[style]["procedure"] = procedure
-                result = "Results/" + style + "_" + source + "_size_" + str(style_size) + "_" + procedure + ".png"
-                if not os.path.isfile(result):
-                    self.run(source_file, style, result)
-            for level in [1,2,3,4,5]:
-                for weight in weights:
-                    if prefix != ",":
-                        procedure = "[" + prefix + ",[" + str(level) + "," + str(weight) + "]]"
-                    else:
-                        procedure = "[[" + str(level) + "," + str(weight) + "]]"
-                    self._style_settings[style]["procedure"] = procedure
-                    result = "Results/" + style + "_" + source + "_size_" + str(style_size) + "_" + procedure  + ".png"
-                    if not os.path.isfile(result):
-                        self.run(source_file,style,result)
-
     def style(self,image,weight,level):
         print("loading encoders & decoders for level " + str(level))
-        if self.last_level == level:
-            encoder = self.encoder_cache
-            decoder = self.decoder_cache
-        else:
-            try:
-                del self.encoder_cache
-                del self.decoder_cache
-                torch.cuda.empty_cache()
-            except:
-                pass
-            if level == 1:
-                encoder = level_1_encoder()
-                decoder = level_1_decoder()
-            elif level == 2:
-                encoder = level_2_encoder()
-                decoder = level_2_decoder()
-            elif level == 3:
-                encoder = level_3_encoder()
-                decoder = level_3_decoder()
-            elif level == 4:
-                encoder = level_4_encoder()
-                decoder = level_4_decoder()
-            elif level == 5:
-                encoder = level_5_encoder()
-                decoder = level_5_decoder()
-        style_params = self.style_vars[str(level)]
-        print("encoding content features")
-        iimage = torch.nn.functional.interpolate(image,size = (300,300),mode = 'bicubic')
-        content_feature = encoder(iimage)
-        print(content_feature.size())
-        print("coloring")
-        colored = self.WCT.content_coloring(
-            content_feature,
-            style_params,
-            weight)
-        print("reconstructing image")
-        isize = image.size()
-        csize = colored.size()
-        new_size = [0,0]
-        new_size[0] = (isize[2] / 300) * csize[2]
-        new_size[1] = (isize[3] / 300) * csize[3]
-        print("small colored size: " + str(csize))
-        print("new colored size: " + str(new_size))
-        icolored = torch.nn.functional.interpolate(content_feature,size = (int(new_size[0]),int(new_size[1])),mode = 'nearest')
-        print("new colored size(): " + str(icolored.size()))
-        ret = decoder(icolored)
-        print("ret size: " + str(ret.size()))
-        self.encoder_cache = encoder
-        self.decoder_cache = decoder
-        self.last_level = level
+        with torch.no_grad():
+            if (self.last_level == level) or ((min(level,self.last_level) == 5) and (max(self.last_level,level) == 6)):
+                encoder = self.encoder_cache
+                decoder = self.decoder_cache
+            else:
+                try:
+                    del self.encoder_cache
+                    del self.decoder_cache
+                    torch.cuda.empty_cache()
+                except:
+                    pass
+                if level == 1:
+                    encoder = level_1_encoder()
+                    decoder = level_1_decoder()
+                elif level == 2:
+                    encoder = level_2_encoder()
+                    decoder = level_2_decoder()
+                elif level == 3:
+                    encoder = level_3_encoder()
+                    decoder = level_3_decoder()
+                elif level == 4:
+                    encoder = level_4_encoder()
+                    decoder = level_4_decoder()
+                elif level in [5,6]:
+                    encoder = level_5_encoder()
+                    decoder = level_5_decoder()
+            level_str = str(level)
+            if level == 6:
+                osize = image.size()
+                image = self.lvl6_downscale(image)
+                level_str = "10"
+            style_params = self.style_vars[level_str]
+            print("encoding content features")
+            content_feature = encoder(image)
+            print(content_feature.size())
+            print("coloring")
+            colored = self.WCT.content_coloring(
+                content_feature,
+                style_params,
+                weight)
+            print("reconstructing image")
+            ret = decoder(colored)
+            print("ret size: " + str(ret.size()))
+            self.encoder_cache = encoder
+            self.decoder_cache = decoder
+            self.last_level = level
+        if level == 6:
+            ret = self.lvl6_upscale(ret,osize)
         return ret
+
+    def lvl6_downscale(self,image,scale = 224):
+        i_size = image.size()
+        if i_size[2] > i_size[3]:
+            new_2 = int(i_size[2] / i_size[3] * scale)
+            new_3 = scale
+        else:
+            new_3 = int(i_size[3] / i_size[2] * scale)
+            new_2 = scale
+        ret = torch.nn.functional.interpolate(image,size = (new_2,new_3),mode = "bilinear")
+        return ret
+
+    def lvl6_upscale(self,image,osize):
+        return torch.nn.functional.interpolate(image,size = (osize[2],osize[3]), mode = "bilinear")
 
     def set_style(self,style_key):
         if self._style_settings is None:
@@ -184,6 +235,14 @@ class Styletransfer:
         for style_feature in net_output:
             ret[str(i)] = self.WCT.style_params(style_feature)
             i += 1
+        #scale the input image accordingly to the smaller size
+        ss = self._style_settings[key]
+        image = self.lvl6_downscale(image,int(224/(ss["content_size"] / ss["style_size"])))
+        net_output = net(image)
+        for style_feature in net_output:
+            ret[str(i)] = self.WCT.style_params(style_feature)
+            print(i)
+            i += 1
         torch.save(ret,cache_key)
         del image
         del net
@@ -193,12 +252,13 @@ class Styletransfer:
 st = Styletransfer()
 #st.run("Resources/bob1.jpg","what2","bob1.png")
 
-#st.run("Resources/cage.jpg","fish","cage.png",intermediates = True)
-#st.run("Resources/road.jpg","fish","road1.png",intermediates = True)
-#st.run("Resources/bob1.jpg","fish","bob1.png",intermediates = True)
-#st.run("Resources/woody.jpg","fish","woody.png",intermediates = True)
-#st.run("Resources/woody.jpg","fish","woody.png",intermediates = True)
-st.run("Resources/andi.jpg","fish","andi.png",intermediates = True)
+style = "meat"
+
+st.run_experimental("Resources/andi.jpg",style,"Results/andi.png")
+st.run_experimental("Resources/house1.jpg",style,"Results/house1.png")
+st.run_experimental("Resources/road.jpg",style,"Results/road1.png")
+st.run_experimental("Resources/bob1.jpg",style,"Results/bob1.png")
+st.run_experimental("Resources/woody.jpg",style,"Results/woody.png")
 #st.explore_style("what2",style_size = 800,prefix = "[2,0.5],[5,1.0],[5,1.0]")
 #st.style_settings("monet")
 

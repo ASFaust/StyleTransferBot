@@ -196,7 +196,7 @@ def style_random_source(style):
 
 styles = json.load(open("style_settings.json","r"))
 
-for style in ["ink","matisse","solojazz","water","beans"]:
+for style in ["schizo","solojazz","beans"]:
     style_random_source(style)
 #st.run("Resources/house1.jpg",style,"Results/house1.png",intermediates = True)
 #st.run("Resources/road.jpg",style,"Results/road1.png",intermediates = True)

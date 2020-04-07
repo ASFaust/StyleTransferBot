@@ -1,0 +1,31 @@
+{
+  "face": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/face2.png",
+  "procedure": "[[5,0.8],[5,0.8],[5,0.8],[4,0.2]]",
+  "old_procedure": "[[6,0.3],[6,0.3],[6,0.3],[5,0.3],[5,0.3],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+  "style_size": 300
+ },
+  "what2": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/what2.jpg",
+  "procedure": "[[1,0.75],[5,0.3],[5,0.3],[5,0.3],[5,0.3],[5,0.3],[2,0.5],[1,0.2]]",
+  "style_size": 800
+ },
+  "wave": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/wave3.jpg",
+  "procedure": "[[6,1.0],[5,1.0],[4,0.7],[3,0.9],[2,1.0],[1,1.0]]",
+  "style_size": 415
+ },
+  "metal": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/metal.jpg",
+  "procedure": "[[6,0.5],[5,0.6],[4,1.0],[4,1.0]]",
+  "style_size": 800
+ }
+}

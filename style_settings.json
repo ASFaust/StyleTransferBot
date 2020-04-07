@@ -1,11 +1,4 @@
 {
- "monet": {
-  "content_size": 800,
-  "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/monet.jpg",
-  "procedure": "[[6,0.5],[5,0.5],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
-  "style_size": 768
- },
   "ramen": {
   "content_size": 800,
   "description": "procedure is [detail/abstraction level, weight]",
@@ -49,35 +42,6 @@
   "procedure": "[[6,0.3],[5,0.6],[4,0.7],[3,1.0],[2,1.0],[1,1.0]]",
   "style_size": 300
  },
-  "face": {
-  "content_size": 800,
-  "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/face2.png",
-  "procedure": "[[6,0.4],[5,0.7],[5,0.6],[4,0.1],[3,0.1],[2,0.1],[1,0.1]]",
-  "old_procedure": "[[6,0.3],[6,0.3],[6,0.3],[5,0.3],[5,0.3],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
-  "style_size": 224
- },
-  "wave": {
-  "content_size": 800,
-  "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/wave1.jpg",
-  "procedure": "[[5,1.0],[4,0.5],[3,0.9],[2,1.0],[1,1.0]]",
-  "style_size": 800
- },
-  "starry": {
-  "content_size": 800,
-  "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/starry.jpg",
-  "procedure": "[[5,0.2],[5,0.5],[4,0.5],[4,0.5],[3,0.5],[2,0.2],[1,0.2]]",
-  "style_size": 700
- },
-  "metal": {
-  "content_size": 800,
-  "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/metal.jpg",
-  "procedure": "[[6,0.5],[5,0.6],[4,1.0],[4,1.0]]",
-  "style_size": 800
- },
   "meat": {
   "content_size": 800,
   "description": "procedure is [detail/abstraction level, weight]",
@@ -85,11 +49,67 @@
   "procedure": "[[6,0.7],[5,0.6],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
   "style_size": 800
  },
-  "what2": {
+  "starry": {
   "content_size": 800,
   "description": "procedure is [detail/abstraction level, weight]",
-  "image": "Resources/Styles/what2.jpg",
-  "procedure": "[[1,0.75],[5,0.3],[5,0.3],[5,0.3],[5,0.3],[5,0.3],[2,0.5],[1,0.2]]",
+  "image": "Resources/Styles/starry.jpg",
+  "procedure": "[[5,0.6],[5,0.5],[3,0.4],[2,0.2],[1,0.2]]",
+  "style_size": 800
+ },
+  "picasso": {
+    "content_size": 800,
+    "description": "procedure is [detail/abstraction level, weight]",
+    "image": "Resources/Styles/seated_nude.jpg",
+    "procedure": "[[5,1.0],[5,1.0],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+    "style_size": 800
+  },
+  "marsden_hardley": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/marsden_hardley.jpg",
+  "procedure": "[[5,1.0],[5,1.0],[4,0.3],[3,0.3],[2,0.5],[1,0.6]]",
+  "style_size": 800
+ },
+  "wood": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/wood1.jpg",
+  "procedure": "[[6,0.7],[5,0.5],[4,0.3],[3,0.4],[2,0.3],[1,0.4]]",
+  "style_size": 800
+ },
+  "matisse": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/matisse1.jpg",
+  "procedure": "[[3,1.0],[5,1.0],[4,0.1],[3,0.1],[2,0.3],[1,0.3]]",
+  "style_size": 512
+ },
+  "ink": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/ink.jpg",
+  "procedure": "[[6,1.0],[5,1.0],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+  "style_size": 735
+ },
+  "solojazz": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/solojazz.png",
+  "procedure": "[[6,0.4],[5,0.6],[4,0.5],[3,1.0],[2,1.0],[1,1.0]]",
+  "style_size": 512
+ },
+  "beans": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/beans.jpg",
+  "procedure": "[[6,0.7],[5,0.6],[4,1.0],[3,1.0],[2,1.0],[1,1.0]]",
+  "style_size": 800
+ },
+  "water": {
+  "content_size": 800,
+  "description": "procedure is [detail/abstraction level, weight]",
+  "image": "Resources/Styles/water1.jpg",
+  "procedure": "[[6,0.3],[5,0.6],[4,0.7],[3,1.0],[2,1.0],[1,1.0]]",
   "style_size": 800
  }
 }

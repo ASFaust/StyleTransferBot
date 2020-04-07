@@ -44,7 +44,7 @@ class Styletransfer:
     def run(self,image,style,filename = "test.png",intermediates = False):
         self.WCT = WCT()
         self.set_style(style)
-        img = load_image(image,size = self.current_style["content_size"])
+        img = load_image(image,size = self.current_style["content_size"],noise = True)
         print(self.current_style["procedure"])
         i = 0
         for level,weight in json.loads(self.current_style["procedure"]):
@@ -182,7 +182,6 @@ class Styletransfer:
         self.style_vars = ret
 
 def style_random_source(style):
-    #
     image_info = requests.get(url = "https://www.shitpostbot.com/api/randsource").json()["sub"]
     title = image_info["name"]
     online_file = "https://www.shitpostbot.com/" + image_info["img"]["full"]
@@ -197,7 +196,7 @@ def style_random_source(style):
 
 styles = json.load(open("style_settings.json","r"))
 
-for style in ["face","starry","wave"]:
+for style in ["ink","matisse","solojazz","water","beans"]:
     style_random_source(style)
 #st.run("Resources/house1.jpg",style,"Results/house1.png",intermediates = True)
 #st.run("Resources/road.jpg",style,"Results/road1.png",intermediates = True)

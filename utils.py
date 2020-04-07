@@ -23,7 +23,7 @@ def load_t7(filename):
     print("loaded " + str(len(ret)) + " layers")
     return ret
 
-def load_image(fpath,size = 768):
+def load_image(fpath,size = 768,noise = False):
     print("loading image " + str(fpath))
     cImg = cv2.imread(fpath)
     if cImg.shape[0] > cImg.shape[1]:
@@ -32,6 +32,7 @@ def load_image(fpath,size = 768):
     else:
         ar = cImg.shape[0] / cImg.shape[1]
         cImg = cv2.resize(cImg, (size, int(ar * size)), interpolation=cv2.INTER_CUBIC)
+
     cImg = cImg.transpose(2, 0, 1)
     a = cImg[0].copy()
     cImg[0] = cImg[2]
@@ -39,6 +40,8 @@ def load_image(fpath,size = 768):
     cImg = np.expand_dims(cImg, axis=0).astype(np.float16)
     #cImg -= cImg.min()
     cImg /= 255.0
+    if noise:
+        cImg += np.random.randn(*(cImg.shape)) * 0.01
     with torch.no_grad():
         cImg = torch.from_numpy(cImg).half().to("cuda:0")
     return cImg

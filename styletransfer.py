@@ -7,7 +7,6 @@ from encoder import style_features,\
     level_3_encoder, \
     level_2_encoder, \
     level_1_encoder, \
-    part_encoder_lvl0_1, \
     part_encoder_lvl1_2, \
     part_encoder_lvl2_3, \
     part_encoder_lvl3_4, \
@@ -26,6 +25,9 @@ from wct import WCT
 import torch
 import torchvision.utils as vutils
 import os
+import requests
+import urllib.request
+
 
 class Styletransfer:
     def __init__(self):
@@ -38,76 +40,6 @@ class Styletransfer:
         self.encoder_cache = None
         self.decoder_cache = None
         self.last_level = -1
-
-    def run_experimental(self,image,style,filename = "test.png"):
-        self.WCT = WCT()
-        self.set_style(style)
-        img = load_image(image, size=self.current_style["content_size"])
-        print("level 1")
-        pe = part_encoder_lvl0_1()
-        features = pe(img)
-        colored = features
-        #colored = self.WCT.content_coloring(
-        ##    features,
-        #    self.style_vars["1"],
-        #    1.0)
-        decoder = level_1_decoder()
-        img = decoder(colored)
-        vutils.save_image(img.data.cpu().float(), filename + "1.jpg")
-        pe = part_encoder_lvl1_2()
-        print("level 2")
-        features = pe(colored)
-        colored = features
-        #colored = self.WCT.content_coloring(
-        #    features,
-        #    self.style_vars["2"],
-         #   1.0)
-        decoder = level_2_decoder()
-        img = decoder(colored)
-        vutils.save_image(img.data.cpu().float(), filename + "2.jpg")
-        pe = part_encoder_lvl2_3()
-        print("level 3")
-        features = pe(colored)
-        colored = features
-        #colored = self.WCT.content_coloring(
-        #    features,
-       #     self.style_vars["3"],
-        #    1.0)
-        decoder = level_3_decoder()
-        img = decoder(colored)
-        vutils.save_image(img.data.cpu().float(), filename + "3.jpg")
-        pe = part_encoder_lvl3_4()
-        print("level 4")
-        features = pe(colored)
-        colored = features
-        #colored = self.WCT.content_coloring(
-        #    features,
-        #    self.style_vars["4"],
-        #    1.0)
-        decoder = level_4_decoder()
-        img = decoder(colored)
-        vutils.save_image(img.data.cpu().float(), filename + "4.jpg")
-        print("level 5")
-        pe = part_encoder_lvl4_5()
-        features = pe(colored)
-        colored = self.WCT.content_coloring(
-            features,
-            self.style_vars["5"],
-            1.0)
-        print("decoding")
-        decoder = level_5_decoder()
-        img = decoder(colored)
-        print("---" * 20)
-        print("saving as " + filename)
-        vutils.save_image(img.data.cpu().float(), filename)
-        del self.WCT
-        try:
-            del self.encoder_cache
-            del self.decoder_cache
-        except:
-            pass
-        self.last_level = -1
-        torch.cuda.empty_cache()
 
     def run(self,image,style,filename = "test.png",intermediates = False):
         self.WCT = WCT()
@@ -197,11 +129,11 @@ class Styletransfer:
         else:
             new_3 = int(i_size[3] / i_size[2] * scale)
             new_2 = scale
-        ret = torch.nn.functional.interpolate(image,size = (new_2,new_3),mode = "bilinear")
+        ret = torch.nn.functional.interpolate(image,size = (new_2,new_3),mode = "bilinear",align_corners = True)
         return ret
 
     def lvl6_upscale(self,image,osize):
-        return torch.nn.functional.interpolate(image,size = (osize[2],osize[3]), mode = "bilinear")
+        return torch.nn.functional.interpolate(image,size = (osize[2],osize[3]), mode = "bilinear",align_corners = True)
 
     def set_style(self,style_key):
         if self._style_settings is None:
@@ -249,16 +181,28 @@ class Styletransfer:
         torch.cuda.empty_cache()
         self.style_vars = ret
 
-st = Styletransfer()
-#st.run("Resources/bob1.jpg","what2","bob1.png")
+def style_random_source(style):
+    #
+    image_info = requests.get(url = "https://www.shitpostbot.com/api/randsource").json()["sub"]
+    title = image_info["name"]
+    online_file = "https://www.shitpostbot.com/" + image_info["img"]["full"]
+    local_file = "Resources/memes/" + online_file.split("/")[-1]
+    print("downloading " + str(title) + " from " + online_file + " to " + local_file)
+    urllib.request.urlretrieve(online_file,local_file)
+    print("downloaded it.")
+    styled_file = "Results/memes/" + ".".join(online_file.split("/")[-1].split(".")[:-1]) + ".png"
+    st = Styletransfer()
+    st.run(local_file, style, styled_file, intermediates=True)
+    #st.run("Resources/bob1.jpg","what2","bob1.png")
 
-style = "meat"
+styles = json.load(open("style_settings.json","r"))
 
-st.run_experimental("Resources/andi.jpg",style,"Results/andi.png")
-st.run_experimental("Resources/house1.jpg",style,"Results/house1.png")
-st.run_experimental("Resources/road.jpg",style,"Results/road1.png")
-st.run_experimental("Resources/bob1.jpg",style,"Results/bob1.png")
-st.run_experimental("Resources/woody.jpg",style,"Results/woody.png")
+for style in ["face","starry","wave"]:
+    style_random_source(style)
+#st.run("Resources/house1.jpg",style,"Results/house1.png",intermediates = True)
+#st.run("Resources/road.jpg",style,"Results/road1.png",intermediates = True)
+#st.run("Resources/bob1.jpg",style,"Results/bob1.png",intermediates = True)
+#st.run("Resources/woody.jpg",style,"Results/woody.png",intermediates = True)
 #st.explore_style("what2",style_size = 800,prefix = "[2,0.5],[5,1.0],[5,1.0]")
 #st.style_settings("monet")
 

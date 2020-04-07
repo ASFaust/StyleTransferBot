@@ -332,20 +332,6 @@ class level_5_encoder(_fe):
             out_4 = style_features.relu14(out)
         return out_4
 
-class part_encoder_lvl0_1(_fe):
-    def __init__(self):
-        torch.set_default_tensor_type('torch.cuda.HalfTensor')
-        super(part_encoder_lvl0_1, self).__init__()
-
-    def forward(self,x):
-        torch.set_default_tensor_type('torch.cuda.HalfTensor')
-        with torch.no_grad():
-            out = part_encoder_lvl0_1.conv1(x)
-            out = part_encoder_lvl0_1.reflecPad1(out)
-            out = part_encoder_lvl0_1.conv2(out)
-            out_0 = part_encoder_lvl0_1.relu2(out)
-        return out_0
-
 class part_encoder_lvl1_2(_fe):
     def __init__(self):
         torch.set_default_tensor_type('torch.cuda.HalfTensor')

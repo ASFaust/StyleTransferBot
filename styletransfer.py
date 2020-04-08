@@ -27,6 +27,8 @@ import torchvision.utils as vutils
 import os
 import requests
 import urllib.request
+from FacebookPage import *
+import random
 
 
 class Styletransfer:
@@ -181,27 +183,41 @@ class Styletransfer:
         torch.cuda.empty_cache()
         self.style_vars = ret
 
-def style_random_source(style):
-    image_info = requests.get(url = "https://www.shitpostbot.com/api/randsource").json()["sub"]
-    title = image_info["name"]
-    online_file = "https://www.shitpostbot.com/" + image_info["img"]["full"]
-    local_file = "Resources/memes/" + online_file.split("/")[-1]
-    print("downloading " + str(title) + " from " + online_file + " to " + local_file)
-    urllib.request.urlretrieve(online_file,local_file)
-    print("downloaded it.")
-    styled_file = "Results/memes/" + ".".join(online_file.split("/")[-1].split(".")[:-1]) + ".png"
-    st = Styletransfer()
-    st.run(local_file, style, styled_file, intermediates=True)
-    #st.run("Resources/bob1.jpg","what2","bob1.png")
+def run():
+    styles = json.load(open("style_settings.json", "r"))
+    style = random.choice(list(styles.keys()))
+    style_text = styles[style]["text"]
+    try:
+        image_info = requests.get(url = "https://www.shitpostbot.com/api/randsource").json()["sub"]
+        title = image_info["name"]
+        online_file = "https://www.shitpostbot.com/" + image_info["img"]["full"]
+        local_file = "Resources/memes/" + online_file.split("/")[-1]
+        print("downloading " + str(title) + " from " + online_file + " to " + local_file)
+        urllib.request.urlretrieve(online_file,local_file)
+        print("downloaded it.")
+        styled_file = "Results/memes/" + ".".join(online_file.split("/")[-1].split(".")[:-1]) + ".png"
+        st = Styletransfer()
+        st.run(local_file, style, styled_file, intermediates=False)
+        print("finished styling image.")
+        fb = FacebookPage()
+        print("posting image")
+        result = fb.post_image(styled_file,style_text.format(title=title))
+        print("posting image finished")
+        if result is not None:
+            print("post success. now trying to comment image")
+            comment_image(result["post_id"],"original:",local_file,fb.token)
+            print("YES. COMMETNED IMAGE")
+        else:
+            print("posting didnt work")
+    except:
+        pass
+    finally:
+        try:
+            os.remove(local_file)
+        except:
+            pass
+        os.remove(styled_file)
 
-styles = json.load(open("style_settings.json","r"))
+run()
 
-for style in ["schizo","solojazz","beans"]:
-    style_random_source(style)
-#st.run("Resources/house1.jpg",style,"Results/house1.png",intermediates = True)
-#st.run("Resources/road.jpg",style,"Results/road1.png",intermediates = True)
-#st.run("Resources/bob1.jpg",style,"Results/bob1.png",intermediates = True)
-#st.run("Resources/woody.jpg",style,"Results/woody.png",intermediates = True)
-#st.explore_style("what2",style_size = 800,prefix = "[2,0.5],[5,1.0],[5,1.0]")
-#st.style_settings("monet")
 

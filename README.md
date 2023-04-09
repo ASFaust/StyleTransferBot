@@ -21,3 +21,5 @@ You'll also need a Facebook API access token, which you can obtain by following 
 
 To run Style Transfer Bot, execute the following command in your terminal:
 
+`python3 run.py`
+
